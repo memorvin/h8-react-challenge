@@ -1,14 +1,35 @@
 import React from 'react';
 import './css/tailwind.css';
-import PictureList from './components/PictureList'
 import NavBar from './components/NavBar'
+import Pictures from './pages/Pictures'
+import Picture from './pages/Picture'
+import Bookmark from './pages/Bookmark'
+import Home from './pages/Home'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 function App() {
   return (
-    <>
+    <Router>
       <NavBar />
-      <PictureList />
-    </>
+      <Switch>
+        <Route path='/pictures'>
+          <Pictures />
+        </Route>
+        <Route path='/pictures/:id'>
+          <Picture />
+        </Route>
+        <Route path='/bookmarks'>
+          <Bookmark />
+        </Route>
+        <Route path='/'>
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
