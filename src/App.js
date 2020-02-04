@@ -16,11 +16,11 @@ function App() {
     <Router>
       <NavBar />
       <Switch>
+        <Route path='/pictures/:date'>
+          <Picture />
+        </Route>
         <Route path='/pictures'>
           <Pictures />
-        </Route>
-        <Route path='/pictures/:id'>
-          <Picture />
         </Route>
         <Route path='/bookmarks'>
           <Bookmark />

@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from "react-router-dom";
 
 export default function MovieCard({ picture }) {
-  
+
   return (
     <div className="w-1/4 h-1/3 rounded shadow-xl m-4">
       {
@@ -12,7 +13,9 @@ export default function MovieCard({ picture }) {
         : <iframe className="w-full" src={picture.url} alt={picture.title}></iframe>
       }
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{picture.title}</div>
+        <Link to={`pictures/${picture.date}`}>
+          <div className="font-bold text-xl mb-2">{picture.title}</div>
+        </Link>
         <p className="text-gray-700 text-base">
           {picture.copyright ? picture.copyright : 'No copyright data'}
         </p>

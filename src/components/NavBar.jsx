@@ -11,7 +11,8 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <nav className="flex items-center justify-between flex-wrap bg-blue-700 p-4">
+      // fixed w-full z-10
+      <nav className="shadow-lg flex items-center justify-between flex-wrap bg-blue-700 p-4">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
           <Link to="/">
             <span className="font-semibold text-xl tracking-tight cursor-pointer">Astronomy Picture of The Day</span>
