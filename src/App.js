@@ -10,31 +10,9 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import { PrivateRoute } from './components/PrivateRoute'
 import { Provider } from 'react-redux'
 import store from './store'
-import { spring, AnimatedSwitch } from 'react-router-transition';
-
-function bounce(val) {
-  return spring(val, {
-    stiffness: 300,
-    damping: 22,
-  });
-}
-
-const bounceTransition = {
-  atEnter: {
-    opacity: 0,
-    scale: 1.6,
-  },
-  atLeave: {
-    opacity: bounce(0),
-    scale: bounce(1.8),
-  },
-  atActive: {
-    opacity: bounce(1),
-    scale: bounce(1),
-  },
-};
 
 function App() {
   return (
@@ -42,25 +20,16 @@ function App() {
       <Router>
         <NavBar />
         <Switch>
-        <AnimatedSwitch
-          atEnter={bounceTransition.atEnter}
-          atLeave={bounceTransition.atLeave}
-          atActive={bounceTransition.atActive}
-          runOnMount={true}
-        >
           <Route path='/pictures/:date'>
             <Picture />
           </Route>
           <Route path='/pictures'>
             <Pictures />
           </Route>
-          <Route path='/bookmarks'>
-            <Bookmark />
-          </Route>
+          <PrivateRoute path='/bookmarks' component={Bookmark} />
           <Route path='/'>
             <Home />
           </Route>
-        </AnimatedSwitch>
         </Switch>
       </Router>
     </Provider>

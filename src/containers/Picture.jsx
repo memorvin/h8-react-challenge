@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchPicture } from '../store/actions'
+import loader from '../assets/spin.gif'
 
 export default function PictureDetail() {
 
@@ -41,9 +42,13 @@ export default function PictureDetail() {
 
   return (
     isLoading
-    ? <p>LOADING</p>
+    ? <img src={loader} alt="loading" className="mx-auto mt-20"/>
     : error
-      ? <p>{error}</p>
+      ? <div className="mx-auto mt-20"> 
+          <img src="https://loading.io/icon/akv0s0" alt="error" />
+          <p className="text-2xl">Something wrong!</p>
+          <p className="text-xl">{error}</p>
+        </div>
       : <div className="content mt-24 max-w-4xl mx-auto">
           <header className="text-center">
             <h1 className="text-4xl md:text-5xl font-semibold">{picture.title}</h1>

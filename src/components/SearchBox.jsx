@@ -39,7 +39,7 @@ export default class SearchBox extends Component {
 
   render() {
     return (
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto my-6">
           <div className="text-sm lg:flex-grow">
             <DateRangePicker
               startDateId="startDate"

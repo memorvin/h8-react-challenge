@@ -34,7 +34,6 @@ export function fetchPicture(url) {
     })
     axios.get(url)
       .then(({ data }) => {
-        console.log(data, 'DARI ACTIONS')
         dispatch({
           type: FETCH_PICTURE_SUCCESS,
           payload: data
