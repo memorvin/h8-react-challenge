@@ -1,0 +1,8 @@
+export const FETCH_PICTURES_SUCCESS = 'FETCH_PICTURES_SUCCESS'
+export const FETCH_PICTURE_SUCCESS = 'FETCH_PICTURE_SUCCESS'
+export const FETCH_FAILED = 'FETCH_FAILED'
+export const FETCH_LOADING = 'FETCH_LOADING'
+export const CHANGE_URL = 'CHANGE_URL'
+
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
