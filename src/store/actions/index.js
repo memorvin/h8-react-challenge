@@ -2,9 +2,14 @@ import {
   FETCH_PICTURES_SUCCESS,
   FETCH_PICTURE_SUCCESS,
   FETCH_FAILED,
-  FETCH_LOADING
+  FETCH_LOADING,
+  REGISTER_SUCCESS,
+  LOGIN_SUCCESS,
+  USER_LOADING,
+  USER_FAILED
 } from '../actionTypes'
 import axios from 'axios'
+import firebase from '../../components/Firestore'
 
 export function fetchPictures(url) {
   return function(dispatch, getState) {
@@ -42,6 +47,82 @@ export function fetchPicture(url) {
       .catch(err => {
         dispatch({
           type: FETCH_FAILED,
+          payload: err
+        })
+      })
+  }
+}
+
+export function register(obj) {
+  return function(dispatch, getState) {
+    dispatch({
+      type: USER_LOADING
+    })
+    const db = firebase.firestore();
+    db.collection('users')
+      .where("email", "==", `${obj.email}`)
+      .get()
+      .then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        if (data.length) {
+          console.log('masuk failed')
+          return dispatch({
+            type: USER_FAILED,
+            payload: 'This email address has been registered. Please sign in or use another one.'
+          })
+        } else {
+          return db.collection('users').add({
+            email: obj.email,
+            password: obj.password
+          })
+        }
+      })
+      .then(data => {
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: data.id
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type: USER_FAILED,
+          payload: err
+        })
+      })
+  }
+}
+
+export function login(obj) {
+  return function(dispatch, getState) {
+    dispatch({
+      type: USER_LOADING
+    })
+    const db = firebase.firestore();
+    db.collection('users')
+      .where("email", "==", `${obj.email}`)
+      .get()
+      .then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        if (!data.length) {
+          dispatch({
+            type: USER_FAILED,
+            payload: 'Wrong username or password'
+          })
+        } else if (String(data[0].password) === String(obj.password)) {
+          dispatch({
+            type: LOGIN_SUCCESS,
+            payload: data[0].email
+          })
+        } else {
+          dispatch({
+            type: USER_FAILED,
+            payload: 'Wrong username or password'
+          })
+        }
+      })
+      .catch(err => {
+        dispatch({
+          type: USER_FAILED,
           payload: err
         })
       })

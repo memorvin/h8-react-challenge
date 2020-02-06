@@ -14,7 +14,7 @@ export default function MovieCard({ picture }) {
       }
       <div className="px-6 py-4">
         <Link to={`pictures/${picture.date}`}>
-          <div className="font-bold text-xl mb-2">{picture.title}</div>
+          <div className="font-bold text-xl mb-2 hover:text-gray-700">{picture.title}</div>
         </Link>
         <p className="text-gray-700 text-base">
           {picture.copyright ? picture.copyright : 'No copyright data'}

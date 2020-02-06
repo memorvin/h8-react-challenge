@@ -3,7 +3,8 @@ import {
   FETCH_FAILED,
   FETCH_LOADING,
   CHANGE_URL,
-  FETCH_PICTURE_SUCCESS
+  FETCH_PICTURE_SUCCESS,
+  CLEAR_API_ERROR
 } from '../actionTypes'
 
 const initialState = {
@@ -43,6 +44,11 @@ export default function APIReducer(state = initialState, action) {
       return {
         ...state,
         url: action.payload
+      }
+    case CLEAR_API_ERROR:
+      return {
+        ...state,
+        error: null
       }
     default:
       return state

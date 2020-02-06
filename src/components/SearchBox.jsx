@@ -38,27 +38,32 @@ export default class SearchBox extends Component {
   }
 
   render() {
+    const boxStyle = {
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+
     return (
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto my-6">
-          <div className="text-sm lg:flex-grow">
-            <DateRangePicker
-              startDateId="startDate"
-              endDateId="endDate"
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-              onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate }) }}
-              focusedInput={this.state.focusedInput}
-              onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
-              isOutsideRange={day => !isInclusivelyBeforeDay(day, moment())}
-            />
-            <button
-              className="hover:bg-white hover:border-blue-700 border hover:text-blue-700 bg-blue-700 text-white font-bold py-2 mx-2 px-4 rounded"
-              onClick={this.handleSearch}
-            >
-              Search
-            </button>
-          </div>
+      <div className="w-1/3 block flex-grow lg:flex lg:items-center my-6" style={boxStyle}>
+        <div className="text-sm lg:flex-grow">
+          <DateRangePicker
+            startDateId="startDate"
+            endDateId="endDate"
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}
+            onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate }) }}
+            focusedInput={this.state.focusedInput}
+            onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
+            isOutsideRange={day => !isInclusivelyBeforeDay(day, moment())}
+          />
+          <button
+            className="hover:bg-white hover:border-blue-700 border hover:text-blue-700 bg-blue-700 text-white font-bold py-2 mx-2 px-4 rounded"
+            onClick={this.handleSearch}
+          >
+            Search
+          </button>
         </div>
+      </div>
     )
   }
 }

@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { fetchPicture } from '../store/actions';
 import loader from '../assets/spin.gif'
 import { Link } from 'react-router-dom'
+import SweetAlert from 'sweetalert2-react';
+import { CLEAR_API_ERROR } from '../store/actionTypes'
 
 const mapStateToProps = (state) => {
   return {
@@ -17,6 +19,11 @@ const mapDispatchToProps = (dispatch) => {
     fetchPicture: (url) => {
       dispatch(fetchPicture(url));
     },
+    clearError: () => {
+      dispatch({
+        type: CLEAR_API_ERROR
+      })
+    }
   };
 };
 
@@ -37,22 +44,23 @@ class Home extends Component {
       isLoading
       ? <img src={loader} alt="loading" className="mx-auto mt-20"/>
       : error
-        ? <div className="mx-auto mt-20"> 
-            <img src="https://loading.io/icon/akv0s0" alt="error" />
-            <p className="text-2xl">Something wrong!</p>
-            <p className="text-xl">{error}</p>
-          </div>
+        ? <SweetAlert
+            show={error}
+            title="Error"
+            text={error}
+            onConfirm={() => this.props.clearError()}
+          />
         : picture.explanation
           ? <>
               <div className="lg:h-screen -mt-24 lg:pt-24 w-full flex flex-wrap">
                 <div className="h-screen w-full lg:h-full lg:w-1/2 flex justify-center items-center">
                   <div className="max-w-md px-12 lg:px-32">
                     <Link to={`pictures/${picture.date}`}>
-                      <h1 className="text-2xl md:text-4xl leading-normal mb-8 font-serif">{picture.title}</h1>
+                      <h1 className="text-2xl md:text-4xl hover:text-gray-700 leading-normal mb-8 font-serif">{picture.title}</h1>
                     </Link>
                     <div className="ml-12 -mr-12">
-                      <p className="pr-6 md:pr-0 text-xs leading-normal md:leading-loose text-grey-darkest mb-8">{this.displayText()}</p>
-                      <p className="text-xs text-black uppercase">{picture.copyright ? picture.copyright : 'No copyright data'} <span className="inline-block h-1 w-24 ml-4 border-t border-grey-light"></span></p>
+                      <p className="pr-6 md:pr-0 text-xs leading-normal md:leading-loose text-grey-800 mb-8 text-justify">{this.displayText()}</p>
+                      <p className="text-xs text-black uppercase">{picture.copyright ? picture.copyright : 'No copyright data'} <span className="inline-block h-1 w-24 ml-4 border-t border-gray-700"></span></p>
                     </div>
                   </div>
                 </div>

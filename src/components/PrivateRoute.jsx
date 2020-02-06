@@ -1,17 +1,22 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
-export const PrivateRoute = ({component: Component, ...rest}) => {
-  const userId = useSelector(state => state.users.userId)
+export const PrivateRoute = ({component: Component, ...props}) => {
+  const user = useSelector(state => state.users.userId)
+  const location = useLocation()
 
   return (
     <Route
-      {...rest}
+      {...props}
       render={(props) =>
-        userId
+        user
         ? <Component {...props} />
-        : <Redirect to={{path: '/'}} />}
+        : <Redirect to={{
+            pathname: '/',
+            state: { referrer: location.pathname }
+          }}
+        />}
     />
   );
 };

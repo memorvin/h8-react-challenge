@@ -5,6 +5,8 @@ import Pictures from './containers/Pictures'
 import Picture from './containers/Picture'
 import Bookmark from './containers/Bookmark'
 import Home from './containers/Home'
+import Login from './containers/Login'
+import Register from './containers/Register'
 import {
   BrowserRouter as Router,
   Switch,
@@ -27,6 +29,12 @@ function App() {
             <Pictures />
           </Route>
           <PrivateRoute path='/bookmarks' component={Bookmark} />
+          <Route path='/login'>
+            <Login />
+          </Route>
+          <Route path='/register'>
+            <Register />
+          </Route>
           <Route path='/'>
             <Home />
           </Route>

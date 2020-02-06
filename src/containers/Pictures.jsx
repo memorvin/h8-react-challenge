@@ -3,8 +3,9 @@ import PictureCard from '../components/PictureCard'
 import SearchBox from '../components/SearchBox'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchPictures } from '../store/actions'
-import { CHANGE_URL } from '../store/actionTypes'
+import { CHANGE_URL, CLEAR_API_ERROR } from '../store/actionTypes'
 import loader from '../assets/spin.gif'
+import SweetAlert from 'sweetalert2-react';
 
 export default function PictureList() {
 
@@ -30,16 +31,23 @@ export default function PictureList() {
       return <PictureCard picture={picture} key={picture.date} />
     })
   })
+
+  const clearError = () => {
+    dispatch({
+      type: CLEAR_API_ERROR
+    })
+  }
   
   return (
     isLoading
       ? <img src={loader} alt="loading" className="mx-auto mt-20"/>
       : error
-        ? <div className="mx-auto mt-20"> 
-            <img src="https://loading.io/icon/akv0s0" alt="error" />
-            <p className="text-2xl">Something wrong!</p>
-            <p className="text-xl">{error}</p>
-          </div>
+        ? <SweetAlert
+            show={error}
+            title="Error"
+            text={error}
+            onConfirm={() => clearError()}
+          />
         : <>
             <SearchBox onSearch={onDateSearch} />
             <div className="flex flex-wrap text-center ml-40">
