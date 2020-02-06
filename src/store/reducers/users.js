@@ -4,13 +4,15 @@ import {
   REGISTER_SUCCESS,
   USER_LOADING,
   USER_FAILED,
-  CLEAR_USER_ERROR
+  CLEAR_USER_ERROR,
+  CLEAR_USER_SUCCESS
 } from '../actionTypes'
 
 const initialState = {
   userId: null,
   isLoading: false,
-  error: null
+  error: null,
+  success: 'safafas'
 }
 
 export default function usersReducer(state = initialState, action) {
@@ -25,7 +27,8 @@ export default function usersReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        userId: action.payload
+        userId: action.payload,
+        success: true
       }
     case LOGOUT:
       return {
@@ -47,6 +50,11 @@ export default function usersReducer(state = initialState, action) {
       return {
         ...state,
         error: null
+      }
+    case CLEAR_USER_SUCCESS:
+      return {
+        ...state,
+        success: false
       }
     default:
       return state

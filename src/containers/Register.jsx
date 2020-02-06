@@ -44,11 +44,11 @@ export default function Register() {
       ? <img src={loader} alt="loading" className="mx-auto mt-20"/>
       : error
         ? <SweetAlert
-          show={error}
-          title="Error"
-          text={error}
-          onConfirm={() => clearError()}
-        />
+            show={error}
+            title="Error"
+            text={error}
+            onConfirm={() => clearError()}
+          />
         : user
           ? <Redirect to="/" />
           : <div className="w-1/3 mx-auto mt-24">

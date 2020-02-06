@@ -65,11 +65,7 @@ export function register(obj) {
       .then(querySnapshot => {
         const data = querySnapshot.docs.map(doc => doc.data());
         if (data.length) {
-          console.log('masuk failed')
-          return dispatch({
-            type: USER_FAILED,
-            payload: 'This email address has been registered. Please sign in or use another one.'
-          })
+          throw new Error('This email address has been registered. Please sign in or use another one.')
         } else {
           return db.collection('users').add({
             email: obj.email,
@@ -86,7 +82,7 @@ export function register(obj) {
       .catch(err => {
         dispatch({
           type: USER_FAILED,
-          payload: err
+          payload: err.message
         })
       })
   }
