@@ -12,7 +12,7 @@ const initialState = {
   userId: null,
   isLoading: false,
   error: null,
-  success: 'safafas'
+  success: false
 }
 
 export default function usersReducer(state = initialState, action) {
